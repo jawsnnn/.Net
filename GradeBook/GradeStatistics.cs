@@ -8,8 +8,14 @@ namespace GradeBook
 {
     class GradeStatistics
     {
-        public float AvgGrade = 0;
-        public float MinGrade = float.MaxValue;
-        public float MaxGrade = 0;
+        public float AvgGrade;
+        public float MinGrade;
+        public float MaxGrade;
+        public GradeStatistics()
+        {
+            AvgGrade = 0;
+            MinGrade = float.MaxValue;
+            MaxGrade = 0;
+        }
     }
 }
