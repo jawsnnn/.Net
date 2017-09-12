@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradeBook
 {
-    class GradeBook
+    public class GradeBook
     {
         public GradeBook()
         {
