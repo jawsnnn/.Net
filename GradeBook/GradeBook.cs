@@ -8,9 +8,18 @@ namespace GradeBook
 {
     public class GradeBook
     {
+
+        public string Name;
+        public int index;
         public GradeBook()
         {
             grades = new List<float>();
+        }
+
+        public GradeBook(string name)
+        {
+            grades = new List<float>();
+            Name = name;
         }
 
         public GradeStatistics ComputeStats()
