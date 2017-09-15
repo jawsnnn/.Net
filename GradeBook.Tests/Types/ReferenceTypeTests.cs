@@ -12,6 +12,24 @@ namespace GradeBook.Tests.Types
     {
 
         [TestMethod]
+        public void UsingArrays()
+        {
+            //const int size = 4;
+            float[] grades;
+            grades = new float[3];
+
+            AddGrades(grades);
+
+            Assert.AreEqual(89.1f, grades[1]);
+        }
+
+        private void AddGrades(float[] grades)
+        {
+            //grades = new float[5];
+            grades[1] = 89.1f; // Array grades is passed by reference and value will be changed
+        }
+
+        [TestMethod]
         public void AddDaystoDateTime()
         {
             DateTime date = new DateTime(2017, 09, 13);
@@ -66,10 +84,18 @@ namespace GradeBook.Tests.Types
             string name1 = "Arpan";
             string name2 = "arpan";
 
+            ChangeStringValue(name1);
+
             bool result = String.Equals(name1, name2, StringComparison.InvariantCultureIgnoreCase);
             Assert.IsTrue(result);
 
         }
+
+        private void ChangeStringValue(string name1)
+        {
+            name1 = "changed";  
+        }
+
         [TestMethod]
         public void IntVariablesStoreValues()
         {

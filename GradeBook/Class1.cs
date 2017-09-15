@@ -18,7 +18,19 @@ namespace GradeBook
             book2.AddGrade(21.0F);
 
             GradeStatistics stats = gb.ComputeStats();
-            Console.WriteLine("Min: " + stats.MinGrade + "|Max: " + stats.MaxGrade + "|Avg: " + stats.AvgGrade);
+            WriteResults("Average", stats.AvgGrade);
+            WriteResults("Minimum grade", stats.MinGrade);
+            WriteResults("Maximum grade", (int)stats.MaxGrade);
+            //Console.WriteLine("Min: " + stats.MinGrade + "|Max: " + stats.MaxGrade + "|Avg: " + stats.AvgGrade);
+        }
+
+    static void WriteResults(string desc, float result)
+        {
+            Console.WriteLine(desc + ": " + result);
+        }
+    static void WriteResults(string desc, int result)
+        {
+            Console.WriteLine($"{desc} --> {result:C}");
         }
     }
 }
