@@ -11,6 +11,9 @@ namespace GradeBook
     static void Main(string[] args)
         {
             GradeBook gb = new GradeBook();
+            gb.Name = "My GradeBook";
+            gb.Name = null;
+            Console.WriteLine(gb.Name);
             gb.AddGrade(10);
             gb.AddGrade(10.9F);
 
@@ -30,7 +33,7 @@ namespace GradeBook
         }
     static void WriteResults(string desc, int result)
         {
-            Console.WriteLine($"{desc} --> {result:C}");
+            Console.WriteLine($"{desc} --> {result}");
         }
     }
 }

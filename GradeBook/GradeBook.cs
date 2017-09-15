@@ -9,7 +9,22 @@ namespace GradeBook
     public class GradeBook
     {
 
-        public string Name;
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+            }
+        }
+
         public int index;
         public GradeBook()
         {
