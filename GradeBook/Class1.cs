@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GradeBook;
 
 namespace GradeBook
 {
@@ -11,8 +12,15 @@ namespace GradeBook
     static void Main(string[] args)
         {
             GradeBook gb = new GradeBook();
+
+            gb.onNameChanged += OutputChanges;
+            gb.WelcomeNewVal += ChangeSuccess;
+            
             gb.Name = "My GradeBook";
-            gb.Name = null;
+            gb.Name = "GradeBookName";
+
+
+            gb.Name = null; // doesn't work anymore because setter doesn't allow it
             Console.WriteLine(gb.Name);
             gb.AddGrade(10);
             gb.AddGrade(10.9F);
@@ -34,6 +42,14 @@ namespace GradeBook
     static void WriteResults(string desc, int result)
         {
             Console.WriteLine($"{desc} --> {result}");
+        }
+    static void OutputChanges (object sender, NameChangedEventArgs args)
+        {
+            Console.WriteLine($"Tryinng to change {args.ExistingName} to {args.NewName}");
+        }
+        static void ChangeSuccess(object sender, NameChangedEventArgs args)
+        {
+            Console.WriteLine($"Goodbye {args.ExistingName} Welcome {args.NewName}");
         }
     }
 }

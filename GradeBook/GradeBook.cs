@@ -8,7 +8,6 @@ namespace GradeBook
 {
     public class GradeBook
     {
-
         private string _name;
         public string Name
         {
@@ -18,23 +17,35 @@ namespace GradeBook
             }
             set
             {
+                NameChangedEventArgs args = new NameChangedEventArgs();
+                args.ExistingName = _name;
+                args.NewName = value;
+                if (_name != value)
+                {                    
+                    onNameChanged(this, args);
+                }
                 if (!String.IsNullOrEmpty(value))
                 {
+                    WelcomeNewVal(this, args);
                     _name = value;
                 }
             }
         }
 
+        public event NameChangedDelegate onNameChanged; // Test whether we can get away with declaring the delegate declaration in the same file
+        public event NameChangedDelegate WelcomeNewVal;
+
         public int index;
         public GradeBook()
         {
             grades = new List<float>();
+            _name = "Empty";
         }
 
         public GradeBook(string name)
         {
             grades = new List<float>();
-            Name = name;
+            _name = name;
         }
 
         public GradeStatistics ComputeStats()
