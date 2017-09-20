@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,18 +18,28 @@ namespace GradeBook
             }
             set
             {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Name of gradebook cannot be null");
+                }
                 NameChangedEventArgs args = new NameChangedEventArgs();
                 args.ExistingName = _name;
                 args.NewName = value;
                 if (_name != value)
-                {                    
-                    onNameChanged(this, args);
-                }
-                if (!String.IsNullOrEmpty(value))
                 {
-                    WelcomeNewVal(this, args);
-                    _name = value;
-                }
+                    onNameChanged(this, args);
+                }                
+                WelcomeNewVal(this, args);
+                _name = value;
+            }
+        }
+
+        public void WriteGrades(TextWriter destination)
+        {
+            int i = 0;
+            for (Console.WriteLine("Printing grades"); i < grades.Count; i++)
+            {
+                destination.WriteLine(grades[i]);
             }
         }
 
@@ -53,7 +64,7 @@ namespace GradeBook
             GradeStatistics stats = new GradeStatistics();
             foreach (float grade in grades)
             {
-                if (stats.MinGrade > grade) 
+                if (stats.MinGrade > grade)
                 {
                     stats.MinGrade = grade;
                 }
@@ -64,11 +75,11 @@ namespace GradeBook
                 stats.AvgGrade = stats.AvgGrade + grade;
             }
             stats.AvgGrade = stats.AvgGrade / grades.Count;
-            
+
             return stats;
         }
-        
-         public void AddGrade(float grade)
+
+        public void AddGrade(float grade)
         {
             grades.Add(grade);
         }
