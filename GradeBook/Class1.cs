@@ -12,15 +12,13 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-
-            GradeBook gb = InitializeGradeBook();
+            GradeTracker gb = InitializeGradeBook();
             AddGrades(gb);
             WriteGrades(gb);
-            DisplayStats(gb);
-            //Console.WriteLine("Min: " + stats.MinGrade + "|Max: " + stats.MaxGrade + "|Avg: " + stats.AvgGrade);
+            DisplayStats(gb);            
         }
 
-        private static void DisplayStats(GradeBook gb)
+        private static void DisplayStats(GradeTracker gb)
         {
             GradeStatistics stats = gb.ComputeStats();
             WriteResults("Average", stats.AvgGrade);
@@ -28,7 +26,7 @@ namespace GradeBook
             WriteResults("Maximum grade", stats.MaxGrade);
         }
 
-        private static void WriteGrades(GradeBook gb)
+        private static void WriteGrades(GradeTracker gb)
         {
             using (StreamWriter f = File.CreateText("Results.txt"))
             {
@@ -36,14 +34,14 @@ namespace GradeBook
             }
         }
 
-        private static void AddGrades(GradeBook gb)
+        private static void AddGrades(GradeTracker gb)
         {
             gb.AddGrade(10);
             gb.AddGrade(10.9F);
             gb.AddGrade(21.0F);
         }
 
-        static int validateGradeBookName(GradeBook book, string name)
+        static int validateGradeBookName(GradeTracker book, string name)
         {
             try
             {
@@ -62,9 +60,9 @@ namespace GradeBook
             return 0;
         }
 
-        private static GradeBook InitializeGradeBook()
+        private static GradeTracker InitializeGradeBook()
         {
-            GradeBook gb = new GradeBook("My gradebook");
+            GradeTracker gb = new ThrowAwayGradeBook("My gradebook");
             gb.onNameChanged += ChangingName;
             gb.WelcomeNewVal += ChangedName;
 

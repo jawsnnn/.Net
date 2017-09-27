@@ -7,44 +7,16 @@ using System.Threading.Tasks;
 
 namespace GradeBook
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
-        private string _name;
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Name of gradebook cannot be null");
-                }
-                NameChangedEventArgs args = new NameChangedEventArgs();
-                args.ExistingName = _name;
-                args.NewName = value;
-                if (_name != value)
-                {
-                    onNameChanged(this, args);
-                }                
-                WelcomeNewVal(this, args);
-                _name = value;
-            }
-        }
-
-        public void WriteGrades(TextWriter destination)
+        public override void WriteGrades(TextWriter destination)
         {
             int i = 0;
             for (Console.WriteLine("Printing grades"); i < grades.Count; i++)
             {
                 destination.WriteLine(grades[i]);
             }
-        }
-
-        public event NameChangedDelegate onNameChanged; // Test whether we can get away with declaring the delegate declaration in the same file
-        public event NameChangedDelegate WelcomeNewVal;
+        }        
 
         public int index;
         public GradeBook()
@@ -59,8 +31,10 @@ namespace GradeBook
             _name = name;
         }
 
-        public GradeStatistics ComputeStats()
+        public override GradeStatistics ComputeStats()
         {
+            Console.WriteLine("GradeBook::ComputeStats");
+
             GradeStatistics stats = new GradeStatistics();
             foreach (float grade in grades)
             {
@@ -79,10 +53,10 @@ namespace GradeBook
             return stats;
         }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             grades.Add(grade);
         }
-        List<float> grades;
+        protected List<float> grades;
     }
 }
